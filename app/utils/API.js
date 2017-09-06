@@ -18,18 +18,6 @@ const API = {
     quote.favorited = !quote.favorited;
     const { _id, favorited } = quote;
     return axios.patch(`/api/quotes/${_id}`, { favorited });
-  },
-  getArticle: function(){
-    return axios.get('/api/saved');
-  },
-  saveArticle: function(){
-    return axios.post('/api/saved');
-  },
-  deleteArticle: function(){
-    return axios.delete('/api/saved')
-  },
-  getIndex: function(){
-    return axios.get('/*');
   }
 };
 

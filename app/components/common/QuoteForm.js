@@ -25,7 +25,7 @@ class QuoteForm extends Component {
       <div className="col-md-6 col-md-offset-3">
         <div style={styles.formStyle} className="form-group">
           <label htmlFor="input-box">
-            Search for Articles
+            Add a quote
           </label>
           <textarea
             style={{
@@ -33,7 +33,7 @@ class QuoteForm extends Component {
             }}
             onChange={this.handleInputChange}
             value={this.state.inputValue}
-            placeholder="Look for articles!"
+            placeholder="Add a new quote here!"
             className="form-control"
             id="input-box"
             rows="3"
