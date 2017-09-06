@@ -5,7 +5,9 @@ class QuoteForm extends Component {
   constructor() {
     super();
     this.state = {
-      inputValue: ""
+      inputValue: "",
+      startdate: "",
+      enddate: ""
     };
     // Binding handleInputChange and handleButtonClick since we'll be passing them as
     // callbacks and 'this' will change otherwise
@@ -27,7 +29,8 @@ class QuoteForm extends Component {
           <label htmlFor="input-box">
             Add a quote
           </label>
-          <textarea
+          <form>
+          <input
             style={{
               resize: "none"
             }}
@@ -38,6 +41,30 @@ class QuoteForm extends Component {
             id="input-box"
             rows="3"
           />
+          <input 
+          style={{
+            resize:"none"
+          }}
+          onChange={this.handleInputChange}
+          value={this.state.startdate}
+          placeholder="Start date"
+          className="form-control"
+          id="start-date"
+          />
+
+          <input 
+          style={{
+            resize:"none"
+          }}
+          onChange={this.handleInputChange}
+          value={this.state.enddate}
+          placeholder="End date"
+          className="form-control"
+          id="end-date"
+          />
+
+          </form>
+
           <button
             onClick={this.handleButtonClick}
             className="btn btn-success"
