@@ -1,26 +1,57 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
 
+
+// https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=b9f91d369ff59547cd47b931d8cbc56b:0:74623931&q=bob
+
 class QuoteForm extends Component {
   constructor() {
     super();
     this.state = {
       inputValue: "",
       startdate: "",
-      enddate: ""
+      enddate: "",
+      numrecord: ""
     };
     // Binding handleInputChange and handleButtonClick since we'll be passing them as
     // callbacks and 'this' will change otherwise
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleStartDateChange = this.handleStartDateChange.bind(this);
+    this.handleEndDateChange = this.handleEndDateChange.bind(this);
+    this.handleNumRecordChange = this.handleNumRecordChange.bind(this);
     this.handleButtonClick = this.handleButtonClick.bind(this);
+
   }
   handleInputChange(event) {
     this.setState({ inputValue: event.target.value });
   }
+    handleStartDateChange(event) {
+    this.setState({ startdate: event.target.value });
+  }
+    handleEndDateChange(event) {
+    this.setState({ enddate: event.target.value });
+  }
+    handleNumRecordChange(event) {
+    this.setState({ numrecord: event.target.value });
+  }
   handleButtonClick() {
-    const newQuote = this.state.inputValue;
-    API.saveQuote(newQuote).then(this.props.getQuotes);
-    this.setState({ inputValue: "" });
+    let query = this.state.inputValue;
+    let start = this.state.startdate;
+    let end = this.state.enddate;
+    API.searchArticle(query, start, end).then(function(data){
+      let dj = JSON.stringify(data)
+        for(var i = 0; i < data.length; i++){
+          console.log(data[i].web_url)
+
+        }
+
+    })
+    this.setState({ 
+      inputValue: "",
+      startdate: "",
+      enddate: "",
+      numrecord: ""
+     });
   }
   render() {
     return (
@@ -41,11 +72,12 @@ class QuoteForm extends Component {
             id="input-box"
             rows="3"
           />
+
           <input 
           style={{
             resize:"none"
           }}
-          onChange={this.handleInputChange}
+          onChange={this.handleStartDateChange}
           value={this.state.startdate}
           placeholder="Start date"
           className="form-control"
@@ -56,15 +88,25 @@ class QuoteForm extends Component {
           style={{
             resize:"none"
           }}
-          onChange={this.handleInputChange}
+          onChange={this.handleEndDateChange}
           value={this.state.enddate}
           placeholder="End date"
           className="form-control"
           id="end-date"
           />
 
-          </form>
+          <input 
+          style={{
+            resize:"none"
+          }}
+          onChange={this.handleNumRecordChange}
+          value={this.state.numrecord}
+          placeholder="Number of records"
+          className="form-control"
+          id="numrecord"
+          />
 
+          </form>
           <button
             onClick={this.handleButtonClick}
             className="btn btn-success"
